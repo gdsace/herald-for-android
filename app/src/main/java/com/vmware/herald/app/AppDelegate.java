@@ -72,15 +72,13 @@ public class AppDelegate extends Application implements SensorDelegate {
         sensor.add(this);
         // Efficacy Loggers
         PayloadData payloadData = sensor.payloadData();
-        if (BuildConfig.DEBUG) {
-            sensor.add(new ContactLog(this, "contacts.csv"));
-            sensor.add(new StatisticsLog(this, "statistics.csv",payloadData));
-            sensor.add(new DetectionLog(this,"detection.csv", payloadData));
-            new BatteryLog(this, "battery.csv");
-            if (BLESensorConfiguration.payloadDataUpdateTimeInterval != TimeInterval.never ||
-                (BLESensorConfiguration.interopOpenTraceEnabled && BLESensorConfiguration.interopOpenTracePayloadDataUpdateTimeInterval != TimeInterval.never)) {
-                sensor.add(new EventTimeIntervalLog(this, "statistics_didRead.csv", payloadData, EventTimeIntervalLog.EventType.read));
-            }
+        sensor.add(new ContactLog(this, "contacts.csv"));
+        sensor.add(new StatisticsLog(this, "statistics.csv",payloadData));
+        sensor.add(new DetectionLog(this,"detection.csv", payloadData));
+        new BatteryLog(this, "battery.csv");
+        if (BLESensorConfiguration.payloadDataUpdateTimeInterval != TimeInterval.never ||
+            (BLESensorConfiguration.interopOpenTraceEnabled && BLESensorConfiguration.interopOpenTracePayloadDataUpdateTimeInterval != TimeInterval.never)) {
+            sensor.add(new EventTimeIntervalLog(this, "statistics_didRead.csv", payloadData, EventTimeIntervalLog.EventType.read));
         }
         // Sensor will start and stop with UI switch (default ON) and bluetooth state
     }
